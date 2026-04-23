@@ -1,0 +1,128 @@
+{username, ...}: {
+  home.file.".config/ghostty/config" = {
+    text = ''
+font-family = "DepartureMono Nerd Font"
+font-style = default
+font-style-bold = default
+font-style-italic = default
+font-style-bold-italic = default
+font-synthetic-style = bold,italic,bold-italic
+font-size = 11
+font-thicken = false
+grapheme-width-method = unicode
+theme = light:rose-pine-dawn,dark:Poimandres
+cursor-style = bar
+mouse-hide-while-typing = true
+
+mouse-shift-capture = false
+background-opacity = 0.9
+unfocused-split-opacity = 0.6
+scrollback-limit = 10000000
+
+link-url = true
+fullscreen = false
+title =
+class =
+x11-instance-name =
+working-directory = "/home/${username}"
+
+keybind = ctrl+alt+i=inspector:toggle
+keybind = ctrl+w=close_surface
+keybind = ctrl+enter=toggle_fullscreen
+keybind = ctrl+t=new_tab
+keybind = ctrl+shift+right_bracket=next_tab
+keybind = ctrl+shift+left_bracket=previous_tab
+
+keybind = ctrl+equal=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+
+keybind = super+comma=open_config
+keybind = ctrl+shift+r=reload_config
+
+keybind = ctrl+shift+a=select_all
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+shift+v=paste_from_clipboard
+
+keybind = ctrl+n=new_window
+keybind = ctrl+zero=reset_font_size
+keybind = ctrl+k=clear_screen
+
+keybind = super+d=new_split:right
+keybind = super+shift+d=new_split:down
+
+keybind = super+alt+right=goto_split:right
+keybind = super+alt+down=goto_split:bottom
+keybind = super+alt+left=goto_split:left
+keybind = super+alt+up=goto_split:top
+keybind = super+left_bracket=goto_split:previous
+keybind = super+right_bracket=goto_split:next
+
+keybind = ctrl+f=start_search
+
+keybind = ctrl+physical:one=goto_tab:1
+keybind = ctrl+physical:two=goto_tab:2
+keybind = ctrl+physical:three=goto_tab:3
+keybind = ctrl+physical:four=goto_tab:4
+keybind = ctrl+physical:five=goto_tab:5
+keybind = ctrl+physical:six=goto_tab:6
+keybind = ctrl+physical:seven=goto_tab:7
+keybind = ctrl+physical:eight=goto_tab:8
+keybind = ctrl+physical:nine=goto_tab:9
+keybind = ctrl+physical:zero=last_tab
+
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+
+window-padding-x = 16
+window-padding-y = 8
+window-padding-balance = false
+window-padding-color = extend
+# keep the following enabled unless you want to test out what a kernel panic looks like
+window-vsync = true
+window-inherit-working-directory = false
+window-inherit-font-size = true
+# window-title-font-family = "0xProto Nerd Font Mono"
+window-theme = auto
+window-colorspace = srgb
+window-height = 0
+window-width = 0
+window-save-state = default
+window-step-resize = false
+window-new-tab-position = current
+
+resize-overlay = after-first
+resize-overlay-position = center
+resize-overlay-duration = 750ms
+
+focus-follows-mouse = true
+
+clipboard-read = allow
+clipboard-write = allow
+clipboard-trim-trailing-spaces = true
+clipboard-paste-protection = true
+clipboard-paste-bracketed-safe = true
+image-storage-limit = 320000000
+copy-on-select = true
+click-repeat-interval = 0
+
+confirm-close-surface = false
+quit-after-last-window-closed = false
+initial-window = true
+shell-integration = detect
+shell-integration-features = cursor,title,ssh-terminfo,sudo
+osc-color-report-format = 16-bit
+vt-kam-allowed = false
+desktop-notifications = true
+bold-is-bright = true
+window-decoration = auto
+window-inherit-working-directory = true
+
+# This will be used to set the `TERM` environment variable.
+# HACK: We set this with an `xterm` prefix because vim uses that to enable key
+# protocols (specifically this will enable `modifyOtherKeys`), among other
+# features. An option exists in vim to modify this: `:set
+# keyprotocol=ghostty:kitty`, however a bug in the implementation prevents it
+# from working properly. https://github.com/vim/vim/pull/13211 fixes this.
+term = xterm-ghostty
+    '';
+  };
+}

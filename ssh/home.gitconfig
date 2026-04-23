@@ -1,0 +1,16 @@
+[user]
+    name = Anthony Loria
+    email = anthony@anthonyloria.dev
+    signingkey = ~/.ssh/id_ed25519_tony.pub
+
+[commit]
+    gpgsign = true
+
+[tag]
+    gpgsign = true
+
+[gpg]
+    format = ssh
+
+[core]
+    autocrlf = input

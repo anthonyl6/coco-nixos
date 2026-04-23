@@ -1,0 +1,17 @@
+{...}: {
+  security = {
+    sudo.enable = true;
+    rtkit.enable = true;
+    
+    pam.services = {
+      "polkit-1".unixAuth = true;
+      "sudo".unixAuth = true;
+      login = {
+        unixAuth = true;
+        enableGnomeKeyring = true;
+      };
+      gdm.unixAuth = true;
+      kde.unixAuth = true;
+    };
+  };
+}

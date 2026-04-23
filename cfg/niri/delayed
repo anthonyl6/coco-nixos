@@ -1,0 +1,11 @@
+#!/run/current-system/sw/bin/bash
+
+sleep 1;
+
+nohup slack 2>&1 > /dev/null &
+disown
+
+# launch discord on home pc
+krisplocation=$(find ~/.config/discord -name "discord_krisp.node")
+nohup krisp-patcher $krisplocation 2>&1 > /dev/null &
+disown
