@@ -4,6 +4,7 @@
     ./keyd.nix
     ./nh.nix
     ./netnamespace.nix
+    ./thunar.nix
     ../security
   ];
 }
