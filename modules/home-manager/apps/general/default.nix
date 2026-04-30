@@ -74,6 +74,7 @@ in
       yaak
       filezilla
       protonvpn-gui
+      satisfactorymodmanager
     ]
     ++ jetbrainsApps
     ++ [

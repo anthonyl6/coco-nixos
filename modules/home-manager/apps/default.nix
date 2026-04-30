@@ -4,5 +4,6 @@
     ./editor
     ./general
     ./helix
+    ./system
   ];
 }

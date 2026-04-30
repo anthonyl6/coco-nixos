@@ -20,6 +20,8 @@
 
   programs.zsh.enable = true;
 
+  hardware.bluetooth.enable = true;
+
   environment.systemPackages = with pkgs-stable; [
     git
   ];

@@ -1,7 +1,7 @@
 { pkgs-stable, ... }:
 {
   services.tailscale = {
-    enable = false;
+    enable = true;
     # Enable tailscale at startup
 
     # If you would like to use a preauthorized key
