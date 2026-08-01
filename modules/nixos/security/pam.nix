@@ -2,7 +2,7 @@
   security = {
     sudo.enable = true;
     rtkit.enable = true;
-    
+
     pam.services = {
       "polkit-1".unixAuth = true;
       "sudo".unixAuth = true;
@@ -10,8 +10,11 @@
         unixAuth = true;
         enableGnomeKeyring = true;
       };
+      greetd.enableGnomeKeyring = true;
       gdm.unixAuth = true;
       kde.unixAuth = true;
     };
   };
+
+  services.gnome.gnome-keyring.enable = true;
 }
