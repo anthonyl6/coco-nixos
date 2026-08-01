@@ -1,4 +1,4 @@
-{ username, ... }:
+{ username, lib, ... }:
 {
   imports = [
     ./shell
@@ -14,8 +14,6 @@
 
   home.stateVersion = "26.05";
   nixpkgs.config.allowUnfree = true;
-
-  gtk.gtk4.theme = null;
 
   home.file = {
     ".config/atuin" = {
@@ -46,6 +44,7 @@
 
     ".config/niri/delayed" = {
       force = true;
+      executable = true;
       source = ../../cfg/niri/delayed;
     };
     ".config/zed/themes" = {
@@ -63,13 +62,21 @@
     };
   };
 
-  # home.activation = {
-  #   linkNiriSettings = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-  #     #!/usr/bin/env bash
-  #     mkdir -p ~/.config/niri
-  #     cp -L ~/.config/niri/config-original.kdl ~/.config/niri/config.kdl
-  #   '';
-  # };
+  # Copy config-nix.kdl → config.kdl only when the Nix source changes,
+  # so DMS writes to config.kdl survive across switches.
+  home.activation.copyNiriConfig = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    config_dest="$HOME/.config/niri/config.kdl"
+    config_src="$HOME/.config/niri/config-nix.kdl"
+    marker="$HOME/.config/niri/.nix-gen"
+
+    nix_gen=$(readlink "$config_src")
+    prev_gen=$(cat "$marker" 2>/dev/null || echo "")
+
+    if [ ! -f "$config_dest" ] || [ "$nix_gen" != "$prev_gen" ]; then
+      $DRY_RUN_CMD cp "$config_src" "$config_dest"
+      [ -n "$DRY_RUN_CMD" ] || printf '%s' "$nix_gen" > "$marker"
+    fi
+  '';
 
   programs.home-manager.enable = true;
 }

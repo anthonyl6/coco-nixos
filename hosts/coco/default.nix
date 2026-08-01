@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs-stable, ... }:
+{ pkgs, pkgs-stable, ... }:
 
 {
   imports = [
@@ -14,7 +14,7 @@
     ../../modules/nixos
   ];
 
-  boot.kernelPackages = pkgs-stable.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages;
 
   networking.hostName = "coco";
 

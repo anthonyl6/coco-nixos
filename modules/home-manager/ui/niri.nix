@@ -3,8 +3,7 @@
   ...
 }:
 {
-  home.file.".config/niri/config.kdl" = {
-    force = true;
+  home.file.".config/niri/config-nix.kdl" = {
     text = ''
       input {
           keyboard {
@@ -18,20 +17,6 @@
 
           focus-follows-mouse
           warp-mouse-to-focus
-      }
-
-      output "DP-1" {
-          mode "2560x1080@74.991"
-          scale 1
-          transform "normal"
-          position x=0 y=0
-      }
-
-      output "DP-2" {
-          mode "2560x1080@74.991"
-          scale 1
-          transform "normal"
-          position x=0 y=0
       }
 
       prefer-no-csd
@@ -321,6 +306,10 @@
       include "dms/layout.kdl"
       include "dms/alttab.kdl"
       include "dms/binds.kdl"
+      include "dms/outputs.kdl"
+      include "dms/cursor.kdl"
+      include "dms/windowrules.kdl"
+      include "dms/wpblur.kdl"
     '';
   };
 
