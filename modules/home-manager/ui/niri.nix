@@ -21,7 +21,14 @@
       }
 
       output "DP-1" {
-          mode "2560x1080@75"
+          mode "2560x1080@74.991"
+          scale 1
+          transform "normal"
+          position x=0 y=0
+      }
+
+      output "DP-2" {
+          mode "2560x1080@74.991"
           scale 1
           transform "normal"
           position x=0 y=0
@@ -309,11 +316,17 @@
           // moving the mouse or pressing any other key.
           Mod+Ctrl+Shift+Q { power-off-monitors; }
       }
+
+      include "dms/colors.kdl"
+      include "dms/layout.kdl"
+      include "dms/alttab.kdl"
+      include "dms/binds.kdl"
     '';
   };
 
   home.file.".config/niri/background" = {
     force = true;
+    executable = true;
     text = ''
       #!/run/current-system/sw/bin/bash
       if [[ "$1" == "--now" ]]; then

@@ -1,5 +1,6 @@
 {
   inputs,
+  stdenv,
   pkgs-stable,
   ...
 }:
@@ -66,7 +67,7 @@ in
   home.packages =
     with pkgs-stable;
     [
-      inputs.helix.packages."${system}".default
+      inputs.helix.packages."${stdenv.hostPlatform.system}".default
     ]
     ++ debuggers
     ++ languageServers

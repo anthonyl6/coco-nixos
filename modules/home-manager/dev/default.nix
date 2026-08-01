@@ -21,14 +21,12 @@ in
 
   home.packages = with pkgs-stable; [
     android-tools
-    nil
     nixfmt
     gcc
     gnumake
     cargo
     nodejs
     bun
-    biome
     jdk
     minio-client
   ];

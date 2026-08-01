@@ -6,10 +6,6 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
-    nixpkgs-fresh = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
-    };
-
     nixpkgs-stable = {
       url = "github:nixos/nixpkgs/nixos-25.11";
     };
@@ -31,11 +27,6 @@
 
     awww = {
       url = "git+https://codeberg.org/LGFae/awww";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    affinity-nix = {
-      url = "github:mrshmllow/affinity-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -65,11 +56,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # zed = {
     #   type = "github";
     #   owner = "zed-industries";
@@ -77,11 +63,6 @@
     #   ref = "main";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     niri = {
       type = "github";
@@ -108,11 +89,8 @@
               modules = [ ./hosts/${name} ];
               specialArgs =
                 let
-                  pkgs = import nixpkgs {
-                    localSystem = {
-                      system = "x86_64-linux";
-                    };
-                  };
+                  system = "x86_64-linux";
+                  pkgs = import nixpkgs { inherit system; };
                   username = "tony";
                   fullName = "Anthony Loria";
                   email = "anthony@anthonyloria.dev";
@@ -123,12 +101,12 @@
                   inherit username;
                   inherit fullName;
                   inherit email;
-                  pkgs-fresh = import inputs.nixpkgs-fresh {
-                    localSystem = pkgs.stdenv.hostPlatform;
+                  pkgs-fresh = import nixpkgs {
+                    inherit system;
                     config.allowUnfree = true;
                   };
                   pkgs-stable = import inputs.nixpkgs-stable {
-                    localSystem = pkgs.stdenv.hostPlatform;
+                    inherit system;
                     config.allowUnfree = true;
                   };
                 };

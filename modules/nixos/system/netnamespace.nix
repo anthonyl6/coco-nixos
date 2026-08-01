@@ -2,7 +2,6 @@
 
 {
   environment.systemPackages = with pkgs-stable; [
-    protonvpn-gui
     iproute2
     dhcpcd
     iptables

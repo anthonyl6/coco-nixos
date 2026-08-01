@@ -7,19 +7,18 @@
   # Thumbnail service
   services.tumbler.enable = true;
 
-  # D-Bus is required for basically everything here
-  services.dbus.enable = true;
-
-  # Wayland portals (critical for Niri)
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs-stable; [
-      xdg-desktop-portal-gtk
-    ];
-  };
-
-  # Optional but often needed for network mounts (smb, etc.)
   environment.systemPackages = with pkgs-stable; [
+    # File manager
+    xfce.thunar
+
+    # Plugins
+    xfce.thunar-archive-plugin
+    xfce.thunar-volman
+    xfce.thunar-media-tags-plugin
+
     gvfs
+
+    file-roller
+    ffmpegthumbnailer
   ];
 }
