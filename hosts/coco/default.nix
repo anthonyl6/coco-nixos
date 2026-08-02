@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, pkgs-stable, username, ... }:
+{ pkgs, pkgs-stable, ... }:
 
 {
   imports = [
@@ -17,9 +17,6 @@
   boot.kernelPackages = pkgs.linuxPackages;
 
   networking.hostName = "coco";
-
-  # Auto-login on TTY1 for the gamescope session launcher (desktop only).
-  services.getty.autologinUser = username;
 
   programs.zsh.enable = true;
 
