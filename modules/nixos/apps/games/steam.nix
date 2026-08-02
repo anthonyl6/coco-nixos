@@ -15,11 +15,8 @@
   hardware.xone.enable = true;
   nixpkgs.config.allowUnfree = true;
 
-  environment = {
-    systemPackages = with pkgs-fresh; [
-      mangohud
-      steam-run
-    ];
-    sessionVariables.MANGOHUD = "1";
-  };
+  environment.systemPackages = with pkgs-fresh; [
+    mangohud
+    steam-run
+  ];
 }

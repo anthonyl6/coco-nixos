@@ -63,6 +63,11 @@
       url = "github:gmodena/nix-flatpak/v0.7.0";
     };
 
+    niri = {
+      url = "github:niri-wm/niri";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # stoa = {
     #   url = "github:bobrware/stoa-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
