@@ -8,12 +8,10 @@
   modulesPath,
   ...
 }:
-
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
-
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"
@@ -25,12 +23,11 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-
   # Remove this after
   boot.supportedFilesystems = [ "ntfs" ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/15bede60-8654-4fd7-aeea-b003cb0e99c6";
+    device = "/dev/disk/by-uuid/6dcaa1fb-0e9c-4f63-8eab-0497817e5721";
     fsType = "ext4";
   };
 
@@ -43,23 +40,13 @@
     ];
   };
 
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/44e264e5-07e3-49ec-8345-7002973c4e3e";
-    fsType = "ext4";
-  };
-
-  # nvme
-  fileSystems."/mnt/nvme" = {
-    device = "/dev/disk/by-label/NVME";
+  # Old ssd root, now just extra storage. Remove this block if you don't
+  # want it auto-mounted anymore.
+  fileSystems."/mnt/ssd" = {
+    device = "/dev/disk/by-uuid/15bede60-8654-4fd7-aeea-b003cb0e99c6";
     fsType = "ext4";
     options = [ "nofail" ];
   };
-
-  # ssd
-  #  fileSystems."/mnt/ssd" =
-  #   { device = "/dev/disk/by-uuid/44e264e5-07e3-49ec-8345-7002973c4e3e";
-  #     fsType = "ext4";
-  #   };
 
   swapDevices = [
     { device = "/dev/disk/by-uuid/fdadfbb9-ceb6-4131-857b-01cffb61c150"; }

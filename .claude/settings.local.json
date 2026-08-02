@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep *)",
+      "Bash(nix flake *)",
+      "Read(//home/tony/.config/niri/**)",
+      "Read(//home/tony/.config/niri/dms/**)",
+      "Read(//home/tony/.config/DankMaterialShell/**)"
+    ]
+  }
+}
