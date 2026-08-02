@@ -9,12 +9,12 @@
 
   environment.systemPackages = with pkgs-stable; [
     # File manager
-    xfce.thunar
+    thunar
 
     # Plugins
-    xfce.thunar-archive-plugin
-    xfce.thunar-volman
-    xfce.thunar-media-tags-plugin
+    thunar-archive-plugin
+    thunar-volman
+    thunar-media-tags-plugin
 
     gvfs
 

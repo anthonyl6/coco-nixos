@@ -38,7 +38,7 @@
       ns = "nh os switch";
     };
 
-    initExtra = ''
+    initContent = ''
       # zoxide — smart directory jumping, replaces cd
       eval "$(zoxide init zsh --cmd cd)"
     '';
@@ -98,9 +98,7 @@
 
   home.packages = with pkgs; [
     eza
-    bat
     fd
-    ripgrep
     zoxide
   ];
 }

@@ -17,7 +17,6 @@
     lazygit
     pokeget-rs
     fastfetch
-    fzf
     ripgrep
     bat
     gh

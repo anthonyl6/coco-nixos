@@ -3,6 +3,7 @@
   fullName,
   email,
   pkgs-stable,
+  pkgs-fresh,
   ...
 }:
 

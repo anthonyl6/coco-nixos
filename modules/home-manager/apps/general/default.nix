@@ -7,6 +7,9 @@
 }:
 
 let
+  proton-drive-cli = pkgs.callPackage ../../../../pkgs/proton-drive-cli.nix { };
+
+
   jetbrainsApps = with pkgs-stable.jetbrains; [
     datagrip
     rider
@@ -73,9 +76,10 @@ in
       vlc
       yaak
       filezilla
-      protonvpn-gui
+      proton-vpn
     ]
     ++ jetbrainsApps
+    ++ [ proton-drive-cli ]
     ++ [
       vesktopVpn
       pkgs-stable.iproute2
@@ -83,10 +87,10 @@ in
 
   xdg.dataFile = vesktopVpnDesktop;
 
-  systemd.user.services.protonvpn-gui = {
+  systemd.user.services.proton-vpn = {
     Unit.Description = "ProtonVPN GUI";
     Service = {
-      ExecStart = "${pkgs-fresh.protonvpn-gui}/bin/protonvpn-app";
+      ExecStart = "${pkgs-fresh.proton-vpn}/bin/protonvpn-app";
       Restart = "on-failure";
     };
     Install.WantedBy = [ "default.target" ];
