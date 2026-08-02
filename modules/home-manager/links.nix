@@ -1,4 +1,4 @@
-{ username, lib, ... }:
+{ username, lib, inputs, ... }:
 {
   imports = [
     ./shell
@@ -8,6 +8,8 @@
     ./apps
     ./dev
   ];
+
+  nixpkgs.overlays = [ inputs.nur.overlays.default ];
 
   home.username = username;
   home.homeDirectory = "/home/${username}";
@@ -52,10 +54,6 @@
       source = ../../cfg/zed/themes;
       recursive = true;
     };
-    ".config/zed/keymap.json" = {
-      force = true;
-      source = ../../cfg/zed/keymap.json;
-    };
     ".face" = {
       force = true;
       source = ../../.face;
@@ -73,7 +71,7 @@
     prev_gen=$(cat "$marker" 2>/dev/null || echo "")
 
     if [ ! -f "$config_dest" ] || [ "$nix_gen" != "$prev_gen" ]; then
-      $DRY_RUN_CMD cp "$config_src" "$config_dest"
+      $DRY_RUN_CMD cp -f "$config_src" "$config_dest"
       [ -n "$DRY_RUN_CMD" ] || printf '%s' "$nix_gen" > "$marker"
     fi
   '';

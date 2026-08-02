@@ -41,18 +41,46 @@ in
         "sql"
         "toml"
       ];
+
+      userSettings = builtins.fromJSON (builtins.readFile ./settings.json);
+
+      userKeymaps = [
+        {
+          context = "Workspace";
+          bindings = { };
+        }
+        {
+          context = "Editor && !menu && !edit_prediction";
+          bindings = {
+            "shift-alt-f" = "editor::Format";
+            "alt-cmd-up" = "editor::AddSelectionAbove";
+            "alt-cmd-down" = "editor::AddSelectionBelow";
+            "shift-alt-up" = "editor::DuplicateLineUp";
+            "shift-alt-down" = "editor::DuplicateLineDown";
+          };
+        }
+        {
+          context = "Editor && !menu && edit_prediction";
+          bindings = {
+            "end" = "editor::AcceptNextWordEditPrediction";
+          };
+        }
+        {
+          context = "ProjectPanel && not_editing";
+          bindings = {
+            "enter" = "project_panel::Rename";
+          };
+        }
+        {
+          context = "(VimControl && !menu)";
+          bindings = {
+            "space" = null;
+          };
+        }
+      ];
     };
 
     # export zedPackage for other modules
     home.zedPackage = zedPackage;
-
-    home.activation.linkZedSettings = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-      mkdir -p ~/.config/zed
-    '';
-
-    home.file.".config/zed/settings-original.json" = {
-      source = ./settings.json;
-      force = true;
-    };
   };
 }

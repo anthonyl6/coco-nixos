@@ -1,5 +1,6 @@
 {
   inputs,
+  pkgs,
   pkgs-stable,
   pkgs-fresh,
   ...
@@ -102,6 +103,21 @@ in
       spacesForce = true;
       pinsForce = true;
       keyboardShortcutsVersion = 16;
+
+      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+        ublock-origin
+        protonpass
+        privacy-badger
+      ];
+
+      settings = {
+        "extensions.autoDisableScopes" = 0;
+        "datareporting.healthreport.uploadEnabled" = false;
+        "datareporting.policy.dataSubmissionEnabled" = false;
+        "browser.ping-centre.telemetry" = false;
+        "toolkit.telemetry.enabled" = false;
+        "toolkit.telemetry.unified" = false;
+      };
     };
   };
 

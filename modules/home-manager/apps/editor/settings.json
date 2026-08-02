@@ -107,15 +107,11 @@
     "line_numbers": true
   },
   "cursor_blink": true,
-  "buffer_font_family": "DepartureMono Nerd Font",
   "indent_guides": {
     "enabled": false
   },
   "tab_size": 2,
-  "ui_font_size": 16.0,
-  "buffer_font_size": 16.0,
   "helix_mode": false,
-  "theme": "Base16 Poimandres",
   "lsp": {
     "nil": {
       "initialization_options": {
@@ -144,7 +140,6 @@
     "enabled": true,
     "delay_ms": 50
   },
-  "ui_font_family": "DepartureMono Nerd Font",
   "hide_mouse": "on_typing_and_movement",
   "auto_install_extensions": {
     "catppuccin-icons": true,
