@@ -15,7 +15,7 @@ let
   ];
 
   vesktopVpn = pkgs-fresh.writeShellScriptBin "vesktop-vpn" ''
-    exec ${pkgs-stable.iproute2}/bin/ip netns exec vpn-bypass \
+    exec sudo ${pkgs-stable.iproute2}/bin/ip netns exec vpn-bypass \
       ${pkgs-fresh.util-linux}/bin/setpriv \
         --reuid=$(${pkgs-fresh.coreutils}/bin/id -u) \
         --regid=$(${pkgs-fresh.coreutils}/bin/id -g) \
@@ -62,7 +62,6 @@ in
       spotify
       obsidian
       fontforge
-      vesktop
       whatsapp-electron
       zoom-us
       nautilus
