@@ -58,6 +58,11 @@
       force = true;
       source = ../../.face;
     };
+    "walls" = {
+      force = true;
+      source = ../../cfg/walls;
+      recursive = true;
+    };
   };
 
   # Copy config-nix.kdl → config.kdl only when the Nix source changes,
