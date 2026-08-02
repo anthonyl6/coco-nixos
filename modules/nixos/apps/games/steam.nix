@@ -20,8 +20,6 @@
       mangohud
       steam-run
     ];
-    loginShellInit = ''
-      [[ "$(tty)" = "/dev/tty1" ]] && exec "$HOME/gs.sh"
-    '';
+    sessionVariables.MANGOHUD = "1";
   };
 }
