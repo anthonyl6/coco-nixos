@@ -1,19 +1,18 @@
 {
-  inputs,
-  stdenv,
+  pkgs,
   pkgs-stable,
   ...
 }:
 
 let
   tuigreet = "${pkgs-stable.tuigreet}/bin/tuigreet";
-  niri-session = "${inputs.niri.packages.${stdenv.hostPlatform.system}.niri}/share/wayland-sessions";
+  niri-session = "${pkgs.niri}/share/wayland-sessions";
 in
 {
 
   programs.niri = {
     enable = true;
-    package = inputs.niri.packages.${stdenv.hostPlatform.system}.niri;
+    package = pkgs.niri;
   };
 
   services.displayManager.gdm.enable = false;

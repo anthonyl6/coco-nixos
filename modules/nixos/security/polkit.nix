@@ -2,7 +2,6 @@
 {
   environment.systemPackages = with pkgs-stable; [
     polkit_gnome
-    hyprpolkitagent
   ];
 
   systemd.user.services.polkit-gnome-authentication-agent-1 = {

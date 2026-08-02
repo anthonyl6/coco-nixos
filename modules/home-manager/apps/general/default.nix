@@ -16,10 +16,10 @@ let
   vesktopVpn = pkgs-fresh.writeShellScriptBin "vesktop-vpn" ''
     exec ${pkgs-stable.iproute2}/bin/ip netns exec vpn-bypass \
       ${pkgs-fresh.util-linux}/bin/setpriv \
-        --reuid=$(id -u) \
-        --regid=$(id -g) \
+        --reuid=$(${pkgs-fresh.coreutils}/bin/id -u) \
+        --regid=$(${pkgs-fresh.coreutils}/bin/id -g) \
         --init-groups \
-      env \
+      ${pkgs-fresh.coreutils}/bin/env \
         HOME="$HOME" \
         XDG_CONFIG_HOME="$HOME/.config" \
         XDG_DATA_HOME="$HOME/.local/share" \
@@ -74,7 +74,6 @@ in
       yaak
       filezilla
       protonvpn-gui
-      satisfactorymodmanager
     ]
     ++ jetbrainsApps
     ++ [

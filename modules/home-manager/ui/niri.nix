@@ -1,5 +1,8 @@
 {
   username,
+  pkgs-stable,
+  inputs,
+  stdenv,
   ...
 }:
 {
@@ -321,13 +324,13 @@
       if [[ "$1" == "--now" ]]; then
         :
       else
-        sleep 1
+        ${pkgs-stable.coreutils}/bin/sleep 1
       fi
 
       # get a random wallpaper from the wallpapers directory
-      wallpaper=$(find /home/${username}/walls -type f -name "*.jpg" | shuf -n 1)
+      wallpaper=$(${pkgs-stable.findutils}/bin/find /home/${username}/walls -type f -name "*.jpg" | ${pkgs-stable.coreutils}/bin/shuf -n 1)
 
-      nohup awww img -t random $wallpaper 2>&1 > /dev/null &
+      ${pkgs-stable.coreutils}/bin/nohup ${inputs.awww.packages.${stdenv.hostPlatform.system}.default}/bin/awww img -t random "$wallpaper" 2>&1 > /dev/null &
 
       disown
     '';

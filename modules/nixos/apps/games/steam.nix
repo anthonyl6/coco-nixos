@@ -8,12 +8,11 @@
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
+    dedicatedServer.openFirewall = false;
     localNetworkGameTransfers.openFirewall = true;
     gamescopeSession.enable = true;
   };
   hardware.xone.enable = true;
-  services.getty.autologinUser = username;
   nixpkgs.config.allowUnfree = true;
 
   environment = {
@@ -22,7 +21,7 @@
       steam-run
     ];
     loginShellInit = ''
-      [[ "$(tty)" = "/dev/tty1" ]] && ./gs.sh
+      [[ "$(tty)" = "/dev/tty1" ]] && exec "$HOME/gs.sh"
     '';
   };
 }

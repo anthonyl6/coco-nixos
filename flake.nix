@@ -7,7 +7,7 @@
     };
 
     nixpkgs-stable = {
-      url = "github:nixos/nixpkgs/nixos-25.11";
+      url = "github:nixos/nixpkgs/nixos-26.05";
     };
 
     home-manager = {
@@ -30,16 +30,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nh = {
-      url = "github:nix-community/nh";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     helix = {
       type = "github";
       owner = "helix-editor";
       repo = "helix";
-      ref = "master";
+      rev = "e7874bc69c0549fe87e863c4b4f6a5c2fccffca7";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -47,7 +42,7 @@
       type = "github";
       owner = "ghostty-org";
       repo = "ghostty";
-      ref = "main";
+      rev = "5540f5f249db0f5e8c1e5f47ee9339f4fe1786f0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -59,12 +54,8 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    niri = {
-      type = "github";
-      owner = "niri-wm";
-      repo = "niri";
-      ref = "main";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak/v0.7.0";
     };
 
     # stoa = {

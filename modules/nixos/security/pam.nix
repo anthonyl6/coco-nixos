@@ -11,8 +11,6 @@
         enableGnomeKeyring = true;
       };
       greetd.enableGnomeKeyring = true;
-      gdm.unixAuth = true;
-      kde.unixAuth = true;
     };
   };
 
