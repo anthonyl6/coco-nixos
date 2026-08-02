@@ -26,6 +26,18 @@
   "agent": {
     "favorite_models": [
       {
+        "provider": "anthropic",
+        "model": "claude-sonnet-4-6"
+      },
+      {
+        "provider": "anthropic",
+        "model": "claude-opus-4-6"
+      },
+      {
+        "provider": "anthropic",
+        "model": "claude-haiku-4-5-20251001"
+      },
+      {
         "provider": "openrouter",
         "model": "moonshotai/kimi-k2.5"
       },
@@ -39,24 +51,12 @@
       },
       {
         "provider": "openrouter",
-        "model": "anthropic/claude-opus-4.5"
-      },
-      {
-        "provider": "openrouter",
-        "model": "anthropic/claude-haiku-4.5"
-      },
-      {
-        "provider": "openrouter",
-        "model": "anthropic/claude-sonnet-4.5"
-      },
-      {
-        "provider": "openrouter",
         "model": "openrouter/auto"
       }
     ],
     "default_model": {
-      "provider": "openrouter",
-      "model": "openrouter/auto"
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6"
     },
     "commit_message_model": {
       "provider": "openrouter",
@@ -153,6 +153,28 @@
     "toml": true
   },
   "language_models": {
+    "anthropic": {
+      "available_models": [
+        {
+          "name": "claude-sonnet-4-6",
+          "display_name": "Claude Sonnet 4.6",
+          "max_tokens": 200000,
+          "max_output_tokens": 16000
+        },
+        {
+          "name": "claude-opus-4-6",
+          "display_name": "Claude Opus 4.6",
+          "max_tokens": 200000,
+          "max_output_tokens": 16000
+        },
+        {
+          "name": "claude-haiku-4-5-20251001",
+          "display_name": "Claude Haiku 4.5",
+          "max_tokens": 200000,
+          "max_output_tokens": 16000
+        }
+      ]
+    },
     "open_router": {
       "api_url": "https://openrouter.ai/api/v1",
       "available_models": []
