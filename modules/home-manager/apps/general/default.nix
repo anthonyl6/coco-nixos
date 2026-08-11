@@ -4,11 +4,8 @@
   pkgs-stable,
   pkgs-fresh,
   ...
-}:
-
-let
-  proton-drive-cli = pkgs.callPackage ../../../../pkgs/proton-drive-cli.nix { };
-
+}: let
+  proton-drive-cli = pkgs.callPackage ../../../../pkgs/proton-drive-cli.nix {};
 
   jetbrainsApps = with pkgs-stable.jetbrains; [
     datagrip
@@ -49,18 +46,14 @@ let
       StartupNotify=true
     '';
   };
-
-in
-{
-
+in {
   imports = [
     inputs.zen-browser.homeModules.twilight
     ../editor
     ../helix
   ];
 
-  home.packages =
-    with pkgs-fresh;
+  home.packages = with pkgs-fresh;
     [
       spotify
       obsidian
@@ -77,9 +70,10 @@ in
       yaak
       filezilla
       proton-vpn
+
     ]
     ++ jetbrainsApps
-    ++ [ proton-drive-cli ]
+    ++ [proton-drive-cli]
     ++ [
       vesktopVpn
       pkgs-stable.iproute2
@@ -93,7 +87,7 @@ in
       ExecStart = "${pkgs-fresh.proton-vpn}/bin/protonvpn-app";
       Restart = "on-failure";
     };
-    Install.WantedBy = [ "default.target" ];
+    Install.WantedBy = ["default.target"];
   };
 
   programs.zsh.enable = true;
@@ -124,5 +118,5 @@ in
     };
   };
 
-  stylix.targets.zen-browser.profileNames = [ "default" ];
+  stylix.targets.zen-browser.profileNames = ["default"];
 }

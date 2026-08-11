@@ -2,8 +2,10 @@
   lib,
   stdenv,
   fetchurl,
-  autoPatchelfHook,
+  patchelf,
   glibc,
+  libsecret,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation {
@@ -15,14 +17,17 @@ stdenv.mkDerivation {
     hash = "sha256-Tjx0p6JdoA16DKnuIjqbewsjjaNXq2/P7gSlwxPd9NE=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ glibc ];
+  nativeBuildInputs = [ patchelf makeWrapper ];
 
   dontUnpack = true;
   dontBuild = true;
+  dontStrip = true;
 
   installPhase = ''
-    install -Dm755 $src $out/bin/proton-drive
+    install -Dm755 $src $out/bin/.proton-drive-unwrapped
+    patchelf --set-interpreter ${glibc}/lib/ld-linux-x86-64.so.2 $out/bin/.proton-drive-unwrapped
+    makeWrapper $out/bin/.proton-drive-unwrapped $out/bin/proton-drive \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}
   '';
 
   meta = {
