@@ -9,7 +9,7 @@
 
   services.udev.packages = [
     (pkgs.writeTextFile {
-      name = "yarg-udev-rules";
+      name = "clonehero-udev-rules";
       text = ''
         KERNEL=="hidraw*", TAG+="uaccess"
       '';
