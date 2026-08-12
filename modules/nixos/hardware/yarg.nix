@@ -1,13 +1,21 @@
-{username, ...}: {
-  services.udev.extraRules = ''
-    # Allow YARG to access HID devices (PS3/Wii instruments)
-    KERNEL=="hidraw*", MODE="0660", GROUP="input", TAG+="uaccess"
+{
+  username,
+  pkgs,
+  ...
+}: {
+  environment.systemPackages = with pkgs; [
+    xwiimote
+  ];
 
-    # XBOX 360 Wireless Adapter compatibility
-    SUBSYSTEM=="usb", ATTR{idVendor}=="045e", ATTR{idProduct}=="0291", MODE="0666"
-    SUBSYSTEM=="usb", ATTR{idVendor}=="045e", ATTR{idProduct}=="02a9", MODE="0666"
-    SUBSYSTEM=="usb", ATTR{idVendor}=="045e", ATTR{idProduct}=="0719", MODE="0666"
-  '';
+  services.udev.packages = [
+    (pkgs.writeTextFile {
+      name = "yarg-udev-rules";
+      text = ''
+        KERNEL=="hidraw*", TAG+="uaccess"
+      '';
+      destination = "/etc/udev/rules.d/69-hid.rules";
+    })
+  ];
 
   users.users.${username}.extraGroups = ["input"];
 }
