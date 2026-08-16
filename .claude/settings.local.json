@@ -9,7 +9,8 @@
       "Bash(xargs sed:*)",
       "Bash(find /home/tony -path *zen* -name *.xpi)",
       "Bash(find /home/tony/.local/share -name *.xpi)",
-      "Bash(python3 -c \"import json; d=json.load\\(open\\(''/home/tony/.config/zen/default/extensions.json''\\)\\); [print\\(a.get\\(''defaultLocale'',{}\\).get\\(''name'',''?''\\), ''- enabled:'', a.get\\(''active''\\), a.get\\(''userDisabled''\\)\\) for a in d.get\\(''addons'',[]\\)]\")"
+      "Bash(python3 -c \"import json; d=json.load\\(open\\(''/home/tony/.config/zen/default/extensions.json''\\)\\); [print\\(a.get\\(''defaultLocale'',{}\\).get\\(''name'',''?''\\), ''- enabled:'', a.get\\(''active''\\), a.get\\(''userDisabled''\\)\\) for a in d.get\\(''addons'',[]\\)]\")",
+      "WebFetch(domain:github.com)"
     ]
   }
 }

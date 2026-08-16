@@ -1,9 +1,8 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./editor
     ./general
     ./helix
-    ./yarg
+    ./clonehero
   ];
 }

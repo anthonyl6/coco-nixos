@@ -68,6 +68,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    yarg-src = {
+      url = "https://github.com/YARC-Official/YARG/releases/download/v0.15.0/YARG_v0.15.0-Linux-x86_64.zip";
+      flake = false;
+    };
+
     # stoa = {
     #   url = "github:bobrware/stoa-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";

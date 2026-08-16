@@ -1,5 +1,5 @@
 {...}: {
   imports = [
-    ./yarg.nix
+    ./clonehero.nix
   ];
 }

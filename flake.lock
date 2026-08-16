@@ -464,6 +464,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nur": "nur",
         "stylix": "stylix",
+        "yarg-src": "yarg-src",
         "zen-browser": "zen-browser"
       }
     },
@@ -653,6 +654,19 @@
         "owner": "tinted-theming",
         "repo": "base16-zed",
         "type": "github"
+      }
+    },
+    "yarg-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782334543,
+        "narHash": "sha256-xIWiQe0GSt6S9j2Xte/p+FHuO07Tv69zxS+OdNEI1sI=",
+        "type": "tarball",
+        "url": "https://github.com/YARC-Official/YARG/releases/download/v0.15.0/YARG_v0.15.0-Linux-x86_64.zip"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/YARC-Official/YARG/releases/download/v0.15.0/YARG_v0.15.0-Linux-x86_64.zip"
       }
     },
     "zen-browser": {
