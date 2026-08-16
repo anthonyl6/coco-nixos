@@ -1,11 +1,7 @@
-{pkgs, inputs, ...}: let
-  yarg = pkgs.callPackage ../../../../pkgs/yarg.nix {
-    yarg-src = inputs.yarg-src;
-  };
-in {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     clonehero
     hidapi
-    yarg
+    (callPackage ../../../../pkgs/yarg.nix {})
   ];
 }
