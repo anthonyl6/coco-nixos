@@ -106,6 +106,7 @@
           [
             "coco"
             "cocolaptop"
+            "gabagool"
           ]
       );
     };
