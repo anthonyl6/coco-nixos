@@ -283,6 +283,7 @@
 
           Mod+Ctrl+Alt+Space { toggle-column-tabbed-display; }
 
+          Mod+S { screenshot; }
           Mod+Shift+3 { screenshot-screen; }
           Mod+Shift+4 { screenshot; }
           Mod+Shift+5 { screenshot-window; }

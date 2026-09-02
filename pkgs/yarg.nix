@@ -26,12 +26,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "yarg";
-  version = "0.15.0";
+  version = "online-alpha-v0.2.2";
 
   src = fetchzip {
-    url = "https://github.com/YARC-Official/YARG/releases/download/v${finalAttrs.version}/YARG_v${finalAttrs.version}-Linux-x86_64.zip";
+    url = "https://github.com/pythonology/YARG/releases/download/${finalAttrs.version}/YARG_Online_Alpha_v0.2.2-Linux-x86_64.zip";
     stripRoot = false;
-    hash = "sha256-xIWiQe0GSt6S9j2Xte/p+FHuO07Tv69zxS+OdNEI1sI=";
+    hash = "sha256-6RnG5CEn+L9pILZ5Unu4tYkzDrHXM8vR3B9Wp4R+5J0=";
   };
 
   nativeBuildInputs = [ autoPatchelfHook ];
@@ -72,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 YARG "$out/bin/yarg"
+    install -Dm755 YARG.x86_64 "$out/bin/yarg"
     install -Dm644 UnityPlayer.so "$out/libexec/yarg/UnityPlayer.so"
 
     mkdir -p "$out/share/icons/hicolor/128x128/apps"
@@ -119,7 +119,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Free, open-source, plastic guitar game";
     homepage = "https://yarg.in";
-    changelog = "https://github.com/YARC-Official/YARG/releases/tag/v${finalAttrs.version}";
+    changelog = "https://github.com/pythonology/YARG/releases/tag/${finalAttrs.version}";
     license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ kira-bruneau ];
     platforms = [ "x86_64-linux" ];

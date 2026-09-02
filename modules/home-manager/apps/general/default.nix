@@ -70,6 +70,7 @@ in {
       yaak
       filezilla
       proton-vpn
+      remmina
 
     ]
     ++ jetbrainsApps
