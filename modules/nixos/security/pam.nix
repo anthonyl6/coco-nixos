@@ -10,6 +10,7 @@
         unixAuth = true;
         enableGnomeKeyring = true;
       };
+      greetd.enableGnomeKeyring = true;
     };
   };
 

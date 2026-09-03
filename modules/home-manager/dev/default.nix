@@ -3,6 +3,7 @@
   fullName,
   email,
   pkgs-stable,
+  pkgs-fresh,
   ...
 }:
 
@@ -19,17 +20,22 @@ in
     ./crush.nix
   ];
 
-  home.packages = with pkgs-stable; [
-    android-tools
-    nixfmt
-    gcc
-    gnumake
-    cargo
-    nodejs
-    bun
-    jdk
-    minio-client
-  ];
+  home.packages =
+    with pkgs-stable;
+    [
+      android-tools
+      nixfmt
+      gcc
+      gnumake
+      cargo
+      nodejs
+      bun
+      jdk
+      minio-client
+    ]
+    ++ [
+      pkgs-fresh.claude-code
+    ];
 
   programs.git = {
     enable = true;

@@ -325,6 +325,26 @@
         "type": "github"
       }
     },
+    "niri": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1784570726,
+        "narHash": "sha256-9EMn69JBcFWFgUM7f0VBAX+jBby5b9H3M59U75+5yI4=",
+        "owner": "niri-wm",
+        "repo": "niri",
+        "rev": "7f26c3ee804fb6ed458ef7fb0e3c794f14e0b3bc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "niri-wm",
+        "repo": "niri",
+        "type": "github"
+      }
+    },
     "nix-flatpak": {
       "locked": {
         "lastModified": 1767983141,
@@ -438,11 +458,13 @@
         "ghostty": "ghostty",
         "helix": "helix",
         "home-manager": "home-manager_2",
+        "niri": "niri",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "nur": "nur",
         "stylix": "stylix",
+        "yarg-src": "yarg-src",
         "zen-browser": "zen-browser"
       }
     },
@@ -632,6 +654,19 @@
         "owner": "tinted-theming",
         "repo": "base16-zed",
         "type": "github"
+      }
+    },
+    "yarg-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782700120,
+        "narHash": "sha256-6RnG5CEn+L9pILZ5Unu4tYkzDrHXM8vR3B9Wp4R+5J0=",
+        "type": "tarball",
+        "url": "https://github.com/pythonology/YARG/releases/download/online-alpha-v0.2.2/YARG_Online_Alpha_v0.2.2-Linux-x86_64.zip"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/pythonology/YARG/releases/download/online-alpha-v0.2.2/YARG_Online_Alpha_v0.2.2-Linux-x86_64.zip"
       }
     },
     "zen-browser": {

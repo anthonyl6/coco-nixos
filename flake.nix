@@ -63,6 +63,16 @@
       url = "github:gmodena/nix-flatpak/v0.7.0";
     };
 
+    niri = {
+      url = "github:niri-wm/niri";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    yarg-src = {
+      url = "https://github.com/pythonology/YARG/releases/download/online-alpha-v0.2.2/YARG_Online_Alpha_v0.2.2-Linux-x86_64.zip";
+      flake = false;
+    };
+
     # stoa = {
     #   url = "github:bobrware/stoa-nix";
     #   inputs.nixpkgs.follows = "nixpkgs";

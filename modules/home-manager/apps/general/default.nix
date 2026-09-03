@@ -4,9 +4,9 @@
   pkgs-stable,
   pkgs-fresh,
   ...
-}:
+}: let
+  proton-drive-cli = pkgs.callPackage ../../../../pkgs/proton-drive-cli.nix {};
 
-let
   jetbrainsApps = with pkgs-stable.jetbrains; [
     datagrip
     rider
@@ -15,7 +15,7 @@ let
   ];
 
   vesktopVpn = pkgs-fresh.writeShellScriptBin "vesktop-vpn" ''
-    exec ${pkgs-stable.iproute2}/bin/ip netns exec vpn-bypass \
+    exec sudo ${pkgs-stable.iproute2}/bin/ip netns exec vpn-bypass \
       ${pkgs-fresh.util-linux}/bin/setpriv \
         --reuid=$(${pkgs-fresh.coreutils}/bin/id -u) \
         --regid=$(${pkgs-fresh.coreutils}/bin/id -g) \
@@ -46,23 +46,18 @@ let
       StartupNotify=true
     '';
   };
-
-in
-{
-
+in {
   imports = [
     inputs.zen-browser.homeModules.twilight
     ../editor
     ../helix
   ];
 
-  home.packages =
-    with pkgs-fresh;
+  home.packages = with pkgs-fresh;
     [
       spotify
       obsidian
       fontforge
-      vesktop
       whatsapp-electron
       zoom-us
       nautilus
@@ -74,9 +69,12 @@ in
       vlc
       yaak
       filezilla
-      protonvpn-gui
+      proton-vpn
+      remmina
+
     ]
     ++ jetbrainsApps
+    ++ [proton-drive-cli]
     ++ [
       vesktopVpn
       pkgs-stable.iproute2
@@ -84,13 +82,13 @@ in
 
   xdg.dataFile = vesktopVpnDesktop;
 
-  systemd.user.services.protonvpn-gui = {
+  systemd.user.services.proton-vpn = {
     Unit.Description = "ProtonVPN GUI";
     Service = {
-      ExecStart = "${pkgs-fresh.protonvpn-gui}/bin/protonvpn-app";
+      ExecStart = "${pkgs-fresh.proton-vpn}/bin/protonvpn-app";
       Restart = "on-failure";
     };
-    Install.WantedBy = [ "default.target" ];
+    Install.WantedBy = ["default.target"];
   };
 
   programs.zsh.enable = true;
@@ -121,5 +119,5 @@ in
     };
   };
 
-  stylix.targets.zen-browser.profileNames = [ "default" ];
+  stylix.targets.zen-browser.profileNames = ["default"];
 }

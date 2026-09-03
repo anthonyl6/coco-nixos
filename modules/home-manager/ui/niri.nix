@@ -283,6 +283,7 @@
 
           Mod+Ctrl+Alt+Space { toggle-column-tabbed-display; }
 
+          Mod+S { screenshot; }
           Mod+Shift+3 { screenshot-screen; }
           Mod+Shift+4 { screenshot; }
           Mod+Shift+5 { screenshot-window; }
@@ -328,7 +329,7 @@
       fi
 
       # get a random wallpaper from the wallpapers directory
-      wallpaper=$(${pkgs-stable.findutils}/bin/find /home/${username}/walls -type f -name "*.jpg" | ${pkgs-stable.coreutils}/bin/shuf -n 1)
+      wallpaper=$(${pkgs-stable.findutils}/bin/find -L /home/${username}/walls -type f -name "*.jpg" | ${pkgs-stable.coreutils}/bin/shuf -n 1)
 
       ${pkgs-stable.coreutils}/bin/nohup ${inputs.awww.packages.${stdenv.hostPlatform.system}.default}/bin/awww img -t random "$wallpaper" 2>&1 > /dev/null &
 

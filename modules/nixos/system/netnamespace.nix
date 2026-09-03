@@ -1,6 +1,18 @@
-{ pkgs-stable, ... }:
+{ pkgs-stable, username, ... }:
 
 {
+  security.sudo.extraRules = [
+    {
+      users = [ username ];
+      commands = [
+        {
+          command = "${pkgs-stable.iproute2}/bin/ip netns exec vpn-bypass *";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
   environment.systemPackages = with pkgs-stable; [
     iproute2
     dhcpcd
