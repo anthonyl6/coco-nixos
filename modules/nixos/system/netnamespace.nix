@@ -5,8 +5,8 @@
 # macvlan requires Ethernet (APs only allow one MAC per client), so this uses
 # a veth pair + policy routing + NAT instead:
 #
-#   host side:  veth-bypass-host  10.200.200.1/24
-#   namespace:  veth-bypass-ns    10.200.200.2/24 -> default via 10.200.200.1
+#   host side:  vpn-host  10.200.200.1/24
+#   namespace:  vpn-ns    10.200.200.2/24 -> default via 10.200.200.1
 #
 # Traffic from the namespace is looked up in routing table 200, which routes
 # directly via the physical default gateway — bypassing any VPN routes in the
@@ -44,6 +44,7 @@
       coreutils
       gnugrep
       gawk
+      procps  # provides sysctl
     ];
 
     serviceConfig = {
@@ -57,7 +58,7 @@
         ip rule del from 10.200.200.0/24 lookup 200 priority 100 2>/dev/null || true
         ip route flush table 200 2>/dev/null || true
         ip netns del vpn-bypass 2>/dev/null || true
-        ip link del veth-bypass-host 2>/dev/null || true
+        ip link del vpn-host 2>/dev/null || true
       '';
     };
 
@@ -76,28 +77,28 @@
 
       # Clean up any leftover state
       ip netns del vpn-bypass      2>/dev/null || true
-      ip link del veth-bypass-host 2>/dev/null || true
+      ip link del vpn-host 2>/dev/null || true
       ip rule del from 10.200.200.0/24 lookup 200 priority 100 2>/dev/null || true
       ip route flush table 200 2>/dev/null || true
 
       # Namespace + veth pair
       ip netns add vpn-bypass
-      ip link add veth-bypass-host type veth peer name veth-bypass-ns
-      ip link set veth-bypass-ns netns vpn-bypass
+      ip link add vpn-host type veth peer name vpn-ns
+      ip link set vpn-ns netns vpn-bypass
 
       # Host side
-      ip addr add 10.200.200.1/24 dev veth-bypass-host
-      ip link set veth-bypass-host up
+      ip addr add 10.200.200.1/24 dev vpn-host
+      ip link set vpn-host up
 
       # Namespace side
-      ip -n vpn-bypass addr add 10.200.200.2/24 dev veth-bypass-ns
+      ip -n vpn-bypass addr add 10.200.200.2/24 dev vpn-ns
       ip -n vpn-bypass link set lo up
-      ip -n vpn-bypass link set veth-bypass-ns up
+      ip -n vpn-bypass link set vpn-ns up
       ip -n vpn-bypass route add default via 10.200.200.1
 
       # Policy routing: namespace traffic bypasses VPN routes in main table
       ip route add default via "$GW" dev "$PHYS_IF" table 200
-      ip route add 10.200.200.0/24 dev veth-bypass-host table 200
+      ip route add 10.200.200.0/24 dev vpn-host table 200
       ip rule add from 10.200.200.0/24 lookup 200 priority 100
 
       # NAT: masquerade as host physical IP
