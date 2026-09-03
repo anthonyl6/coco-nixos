@@ -30,7 +30,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchzip {
     url = "https://github.com/pythonology/YARG/releases/download/${finalAttrs.version}/YARG_Online_Alpha_v0.2.2-Linux-x86_64.zip";
-    stripRoot = false;
+    # This release wraps everything in a YARG_Online_Alpha_v0.2.2-Linux-x86_64/
+    # directory, so the root must be stripped (the default) for installPhase to
+    # find YARG.x86_64 / UnityPlayer.so / YARG_Data at the top of $src.
     hash = "sha256-6RnG5CEn+L9pILZ5Unu4tYkzDrHXM8vR3B9Wp4R+5J0=";
   };
 
