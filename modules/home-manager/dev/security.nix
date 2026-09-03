@@ -31,7 +31,7 @@
 
     # ── SSL / TLS ─────────────────────────────────────────────────────────────
     sslscan     # TLS version / cipher enumeration
-    openssl     # Swiss-army knife for certs and crypto
+    # openssl is already in the environment via other packages
 
     # ── Enumeration ───────────────────────────────────────────────────────────
     enum4linux-ng  # SMB / LDAP enumeration (Samba targets)
