@@ -28,7 +28,7 @@
         style = {
           wallpapers = [ ];
           interface = {
-            resolution = "5120x2160";
+            resolution = "2880x1920";
             helpHidden = true;
             branding = "";
           };
@@ -50,12 +50,13 @@
     initrd = {
       verbose = false;
     };
+    # nvidia-drm.modeset/fbdev are contributed by hardware.nvidia.modesetting
+    # in ../../modules/nixos/hardware/nvidia-egpu.nix, so they aren't repeated
+    # here.
     kernelParams = [
       "quiet"
       "splash"
       "boot.shell_on_fail"
-      "nvidia-drm.modeset=1"
-      "nvidia-drm.fbdev=1"
       "udev.log-priority=3"
       "rd.systemd.show_status=auto"
     ];

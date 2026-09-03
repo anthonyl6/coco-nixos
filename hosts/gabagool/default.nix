@@ -7,6 +7,7 @@
 {
   imports = [
     # Include the results of the hardware scan.
+    ../../modules/nixos/hardware/nvidia-egpu.nix
     ../../modules/nixos/hardware/power-management.nix
     ./hardware-configuration.nix
     ./boot.nix
@@ -18,6 +19,15 @@
   networking.hostName = "gabagool";
 
   programs.zsh.enable = true;
+
+  # AX210 combo card.
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  # Goodix reader in the power button.
+  services.fprintd.enable = true;
 
   environment.systemPackages = with pkgs-stable; [
     git
