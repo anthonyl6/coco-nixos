@@ -18,6 +18,7 @@ in
 {
   imports = [
     ./crush.nix
+    ./security.nix
   ];
 
   home.packages =

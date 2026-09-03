@@ -320,20 +320,18 @@
   home.file.".config/niri/background" = {
     force = true;
     executable = true;
+    # Poll until awww-daemon is ready instead of sleeping a fixed 1 s.
+    # Niri spawns this script in the background, so no nohup/disown needed.
     text = ''
       #!/run/current-system/sw/bin/bash
-      if [[ "$1" == "--now" ]]; then
-        :
-      else
-        ${pkgs-stable.coreutils}/bin/sleep 1
-      fi
-
-      # get a random wallpaper from the wallpapers directory
       wallpaper=$(${pkgs-stable.findutils}/bin/find -L /home/${username}/walls -type f -name "*.jpg" | ${pkgs-stable.coreutils}/bin/shuf -n 1)
+      [[ -z "$wallpaper" ]] && exit 0
 
-      ${pkgs-stable.coreutils}/bin/nohup ${inputs.awww.packages.${stdenv.hostPlatform.system}.default}/bin/awww img -t random "$wallpaper" 2>&1 > /dev/null &
-
-      disown
+      awww=${inputs.awww.packages.${stdenv.hostPlatform.system}.default}/bin/awww
+      for _ in $(seq 1 20); do
+        "$awww" img -t random "$wallpaper" 2>/dev/null && exit 0
+        ${pkgs-stable.coreutils}/bin/sleep 0.1
+      done
     '';
   };
 }
