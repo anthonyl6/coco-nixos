@@ -2,8 +2,7 @@
   pkgs-fresh,
   username,
   ...
-}:
-{
+}: {
   services.resolved.enable = true;
   programs.steam = {
     enable = true;
@@ -18,5 +17,6 @@
   environment.systemPackages = with pkgs-fresh; [
     mangohud
     steam-run
+    vulkaninfo
   ];
 }
