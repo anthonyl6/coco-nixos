@@ -30,6 +30,11 @@
 
       environment {
           DISPLAY ":0"
+          // Pin Vulkan to RADV by default. The NVIDIA eGPU ICD requires PRIME
+          // offload env vars to initialise; without them it fails silently and
+          // confuses games that enumerate all ICDs. nvidia-offload overrides
+          // this variable when you want the RTX GPU.
+          VK_ICD_FILENAMES "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json:/run/opengl-driver-32/share/vulkan/icd.d/radeon_icd.i686.json"
       }
 
       layout {

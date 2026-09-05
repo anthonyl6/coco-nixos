@@ -17,6 +17,6 @@
   environment.systemPackages = with pkgs-fresh; [
     mangohud
     steam-run
-    vulkaninfo
+    vulkan-tools
   ];
 }

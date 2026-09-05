@@ -1,6 +1,5 @@
-{ ... }:
-{
-  services.xserver.videoDrivers = [ "nvidia" ];
+{pkgs, ...}: {
+  services.xserver.videoDrivers = ["nvidia" "amdgpu"];
 
   hardware = {
     graphics.enable = true;
