@@ -2,13 +2,10 @@
   pkgs-fresh,
   username,
   ...
-}:
-
-{
+}: {
   # Load KVM modules dynamically
   boot.kernelModules = [
     "kvm"
-    "kvm-intel"
     "kvm-amd"
   ];
 
@@ -38,4 +35,9 @@
     spice
     spice-gtk
   ];
+
+  # Workaround: systemd-creds crashes (assertion bug in 259.3) when TPM2 sealing
+  # fails, causing virt-secret-init-encryption.service to fail and block libvirtd.
+  systemd.services."virt-secret-init-encryption".enable = false;
+  systemd.services.libvirtd.serviceConfig.LoadCredentialEncrypted = "";
 }

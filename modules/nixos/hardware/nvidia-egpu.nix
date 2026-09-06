@@ -3,6 +3,18 @@
   # iGPU. amdgpu keeps driving the internal panel; the NVIDIA card is only
   # used for render offload, so it is deliberately *not* in videoDrivers
   # first and PRIME is left off (see below).
+  #
+  # pci=realloc: the BIOS doesn't reserve enough PCI bus-number/MMIO space
+  # behind the Thunderbolt root port for a device that's hot-added after
+  # boot (or enumerates late during boot). Without this, the kernel logs
+  # "bridge configuration invalid ([bus 00-00]), reconfiguring" and the
+  # GPU gets stuck reporting D3cold with "fallen off the bus" no matter
+  # what power-state/rescan tricks are applied afterward -- the fix has
+  # to happen at initial resource allocation, not after the fact.
+  boot.kernelParams = [
+    "pci=realloc"
+  ];
+
   services.xserver.videoDrivers = [
     "modesetting"
     "nvidia"
@@ -27,6 +39,13 @@
       # Preserve VRAM across suspend. Turn this off first if resume misbehaves
       # with the enclosure attached.
       powerManagement.enable = true;
+
+      prime = {
+        offload.enable = true;
+        offload.enableOffloadCmd = true;
+        amdgpuBusId = "PCI:193:0:0";
+        nvidiaBusId = "PCI:6:0:0";
+      };
     };
 
     amdgpu = {
@@ -35,36 +54,4 @@
       opencl.enable = true;
     };
   };
-
-  # Prevent greetd from starting before the NVIDIA eGPU has fully enumerated
-  # on the PCIe bus. bolt.service authorizes the Thunderbolt enclosure, but
-  # PCIe enumeration and nvidia module probe happen asynchronously after that.
-  # We poll for /dev/nvidia0 with a 15 s timeout; if the eGPU isn't attached
-  # the loop exits early and greetd starts normally on the iGPU.
-  systemd.services.greetd = {
-    after = [ "bolt.service" ];
-    wants = [ "bolt.service" ];
-    serviceConfig.ExecStartPre = pkgs.writeShellScript "wait-for-nvidia" ''
-      for i in $(seq 1 30); do
-        [ -e /dev/nvidia0 ] && exit 0
-        sleep 0.5
-      done
-      exit 0
-    '';
-  };
-
-  # No hardware.nvidia.prime here on purpose: PRIME wants a fixed nvidiaBusId,
-  # but an eGPU's bus ID moves with the port it's plugged into, and the offload
-  # env vars work fine under niri without it.
-  environment.systemPackages = [
-    pkgs.bolt
-    (pkgs.writeShellScriptBin "nvidia-offload" ''
-      export __NV_PRIME_RENDER_OFFLOAD=1
-      export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export __VK_LAYER_NV_optimus=NVIDIA_only
-      export VK_ICD_FILENAMES=/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json:/run/opengl-driver-32/share/vulkan/icd.d/nvidia_icd.i686.json
-      exec "$@"
-    '')
-  ];
 }

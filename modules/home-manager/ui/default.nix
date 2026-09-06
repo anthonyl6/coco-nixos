@@ -34,32 +34,38 @@
   # and re-enable it when disconnected.
   services.kanshi = lib.mkIf (hostname == "gabagool") {
     enable = true;
-    profiles = {
-      undocked = {
-        outputs = [
-          {
-            criteria = "BOE NE135A1M-NY1";
-            status = "enable";
-            mode = "2880x1920@120";
-            scale = 2.0;
-            position = "0,0";
-          }
-        ];
-      };
-      docked = {
-        outputs = [
-          {
-            criteria = "LG Electronics LG ULTRAWIDE";
-            status = "enable";
-            mode = "2560x1080@75";
-            position = "0,0";
-          }
-          {
-            criteria = "BOE NE135A1M-NY1";
-            status = "disable";
-          }
-        ];
-      };
-    };
+    settings = [
+      {
+        profile = {
+          name = "undocked";
+          outputs = [
+            {
+              criteria = "BOE NE135A1M-NY1";
+              status = "enable";
+              mode = "2880x1920@120";
+              scale = 2.0;
+              position = "0,0";
+            }
+          ];
+        };
+      }
+      {
+        profile = {
+          name = "docked";
+          outputs = [
+            {
+              criteria = "LG Electronics LG ULTRAWIDE";
+              status = "enable";
+              mode = "2560x1080@75";
+              position = "0,0";
+            }
+            {
+              criteria = "BOE NE135A1M-NY1";
+              status = "disable";
+            }
+          ];
+        };
+      }
+    ];
   };
 }
