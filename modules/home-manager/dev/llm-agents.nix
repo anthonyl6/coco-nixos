@@ -1,16 +1,24 @@
-{ pkgs-fresh, config, ... }:
-
-let
+{
+  pkgs-fresh,
+  inputs,
+  stdenv,
+  config,
+  ...
+}: let
   caveman = pkgs-fresh.fetchFromGitHub {
     owner = "juliusbrussee";
     repo = "caveman";
     rev = "v1.6.0";
     sha256 = "sha256-m7HhCW4fXU5pIYRWVP6cvSYUkDHt8R90D9UI3tT7euk=";
   };
-in
-{
+  llm-agents = inputs.llm-agents.packages.${stdenv.system};
+in {
   home.packages = [
-    pkgs-fresh.crush
+    llm-agents.crush
+    llm-agents.claude-code
+    llm-agents.opencode
+    llm-agents.gemini-cli
+    llm-agents.qwen-code
   ];
 
   home.file.".config/agents/skills/caveman" = {

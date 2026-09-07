@@ -5,24 +5,20 @@
   pkgs-stable,
   pkgs-fresh,
   ...
-}:
-
-let
+}: let
   # ← PASTE YOUR ACTUAL FULL PUBKEY HERE (one line)
   myPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJuRaAYUVatZWTRlp6wDlRtJoC40FHeFPKvumBcViCVg";
 
   allowedSignersFile = pkgs-stable.writeText "git-allowed-signers" ''
     ${email} namespaces="git" ${myPubKey}
   '';
-in
-{
+in {
   imports = [
-    ./crush.nix
+    ./llm-agents.nix
     ./security.nix
   ];
 
-  home.packages =
-    with pkgs-stable;
+  home.packages = with pkgs-stable;
     [
       android-tools
       nixfmt

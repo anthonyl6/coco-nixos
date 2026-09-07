@@ -68,6 +68,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+    };
+
     yarg-src = {
       url = "https://github.com/pythonology/YARG/releases/download/online-alpha-v0.2.2/YARG_Online_Alpha_v0.2.2-Linux-x86_64.zip";
       flake = false;
