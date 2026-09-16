@@ -57,7 +57,7 @@
 
           focus-ring {
               width 2
-              active-gradient from="#003c3c" to="#191724" angle=180
+              active-gradient from="#ff4e66" to="#191724" angle=180
           }
 
           tab-indicator {
@@ -98,10 +98,7 @@
       }
 
       spawn-at-startup "xwayland-satellite"
-      spawn-at-startup "awww-daemon"
       spawn-at-startup "/home/${username}/.config/niri/delayed"
-      spawn-at-startup "/home/${username}/.config/niri/background"
-      // spawn-at-startup "noctalia-shell"
 
       // screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
       screenshot-path null
@@ -185,9 +182,31 @@
           open-fullscreen true
       }
 
+      window-rule {
+          match app-id="dev.noctalia.Noctalia"
+          open-floating true
+          default-column-width { fixed 1080; }
+          default-window-height { fixed 920; }
+      }
+
       layer-rule {
-          match namespace="^awww-daemon$"
+          match namespace="^noctalia-wallpaper"
           place-within-backdrop true
+      }
+
+      layer-rule {
+          match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
+          background-effect {
+              xray false
+          }
+      }
+
+      layer-rule {
+          match namespace="noctalia-window-switcher"
+          background-effect {
+              blur true
+              xray false
+          }
       }
 
       overview {
@@ -214,7 +233,13 @@
           Mod+Shift+Ctrl+Slash { show-hotkey-overlay; }
 
           // Suggested binds for running programs: terminal, app launcher, screen locker.
-          Mod+Space { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
+          // Core Noctalia shell binds
+          Mod+Space { spawn "vicinae" "toggle"; }
+          Mod+Shift+Space { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+          Mod+C { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
+          Mod+Comma { spawn "noctalia" "msg" "settings-toggle"; }
+          Alt+Tab { spawn "noctalia" "msg" "window-switcher"; }
+          Mod+L { spawn "noctalia" "msg" "session" "lock"; }
           Super+Alt+L { spawn "dolphin"; }
 
           // You can also use a shell. Do this if you need pipes, multiple commands, etc.
@@ -223,17 +248,17 @@
 
           // Example volume keys mappings for PipeWire & WirePlumber.
           // The allow-when-locked=true property makes them work even when the session is locked.
-          XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.025+"; }
-          XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.025-"; }
-          XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+          XF86AudioRaiseVolume allow-when-locked=true { spawn "noctalia" "msg" "volume-up"; }
+          XF86AudioLowerVolume allow-when-locked=true { spawn "noctalia" "msg" "volume-down"; }
+          XF86AudioMute        allow-when-locked=true { spawn "noctalia" "msg" "volume-mute"; }
           XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
           XF86AudioPlay       allow-when-locked=true { spawn "playerctl" "play-pause"; }
           XF86AudioPause      allow-when-locked=true { spawn "playerctl" "play-pause"; }
           XF86AudioNext       allow-when-locked=true { spawn "playerctl" "next"; }
           XF86AudioPrev       allow-when-locked=true { spawn "playerctl" "previous"; }
 
-          XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "s" "10%+"; }
-          XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "s" "10%-"; }
+          XF86MonBrightnessUp allow-when-locked=true { spawn "noctalia" "msg" "brightness-up"; }
+          XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia" "msg" "brightness-down"; }
 
           Mod+Q { close-window; }
 
@@ -311,32 +336,11 @@
           Mod+Ctrl+Shift+Q { power-off-monitors; }
       }
 
-      include "dms/colors.kdl"
-      include "dms/layout.kdl"
-      include "dms/alttab.kdl"
-      include "dms/binds.kdl"
-      include "dms/outputs.kdl"
-      include "dms/cursor.kdl"
-      include "dms/windowrules.kdl"
-      include "dms/wpblur.kdl"
+      include "extra.kdl"
     '';
   };
 
-  home.file.".config/niri/background" = {
-    force = true;
-    executable = true;
-    # Poll until awww-daemon is ready instead of sleeping a fixed 1 s.
-    # Niri spawns this script in the background, so no nohup/disown needed.
-    text = ''
-      #!/run/current-system/sw/bin/bash
-      wallpaper=$(${pkgs-stable.findutils}/bin/find -L /home/${username}/walls -type f -name "*.jpg" | ${pkgs-stable.coreutils}/bin/shuf -n 1)
-      [[ -z "$wallpaper" ]] && exit 0
-
-      awww=${inputs.awww.packages.${stdenv.hostPlatform.system}.default}/bin/awww
-      for _ in $(seq 1 20); do
-        "$awww" img -t random "$wallpaper" 2>/dev/null && exit 0
-        ${pkgs-stable.coreutils}/bin/sleep 0.1
-      done
-    '';
-  };
+  home.file.".config/niri/extra.kdl".text = ''
+    // Personal niri tweaks applied on top of the Nix-managed config-nix.kdl.
+  '';
 }

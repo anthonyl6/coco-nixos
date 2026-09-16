@@ -15,10 +15,7 @@
 in {
   home.packages = [
     llm-agents.crush
-    llm-agents.claude-code
-    llm-agents.opencode
-    llm-agents.gemini-cli
-    llm-agents.qwen-code
+    llm-agents.opencode2
   ];
 
   home.file.".config/agents/skills/caveman" = {

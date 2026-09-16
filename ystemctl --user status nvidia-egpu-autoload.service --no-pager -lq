@@ -1,5 +1,0 @@
-Sep 06 13:00:22 gabagool systemd[2591]: Starting Auto-load NVIDIA eGPU once niri session starts, if connected...
-Sep 06 13:00:22 gabagool sudo[2731]: sudo: /nix/store/228d35x493ajcij1qswi4qiqv7fffxvp-sudo-1.9.17p2/bin/sudo must be owned by uid 0 and have the setuid bit set
-Sep 06 13:00:22 gabagool systemd[2591]: [0;1;39m[0;1;31m[0;1;39mnvidia-egpu-autoload.service: Main process exited, code=exited, status=1/FAILURE[0m
-Sep 06 13:00:22 gabagool systemd[2591]: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mnvidia-egpu-autoload.service: Failed with result 'exit-code'.[0m
-Sep 06 13:00:22 gabagool systemd[2591]: [0;1;31m[0;1;39m[0;1;31mFailed to start Auto-load NVIDIA eGPU once niri session starts, if connected.[0m

@@ -10,12 +10,12 @@ font-synthetic-style = bold,italic,bold-italic
 font-size = 11
 font-thicken = false
 grapheme-width-method = unicode
-theme = light:rose-pine-dawn,dark:Poimandres
+theme = CrimsonVoltageDark
 cursor-style = bar
 mouse-hide-while-typing = true
 
 mouse-shift-capture = false
-background-opacity = 0.9
+background-opacity = 0.82
 unfocused-split-opacity = 0.6
 scrollback-limit = 10000000
 
@@ -125,4 +125,31 @@ window-inherit-working-directory = true
 term = xterm-ghostty
     '';
   };
+
+  # Dark theme built from the Crimson Voltage palette (matches Noctalia).
+  home.file.".config/ghostty/themes/CrimsonVoltageDark".text = ''
+    palette = 0=#0f172a
+    palette = 1=#ff4e66
+    palette = 2=#4ade80
+    palette = 3=#ff9f43
+    palette = 4=#3b82f6
+    palette = 5=#ff6e9c
+    palette = 6=#38bdf8
+    palette = 7=#e6edf7
+    palette = 8=#475569
+    palette = 9=#f57385
+    palette = 10=#86efac
+    palette = 11=#ffd27d
+    palette = 12=#60a5fa
+    palette = 13=#ff9fc4
+    palette = 14=#7dd3fc
+    palette = 15=#cbd5e1
+
+    background = #070b14
+    foreground = #e6edf7
+    cursor-color = #ff4e66
+    cursor-text = #0b0f1a
+    selection-background = #3a1620
+    selection-foreground = #ffc1c9
+  '';
 }

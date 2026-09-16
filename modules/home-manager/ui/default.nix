@@ -8,8 +8,10 @@
 }:
 {
   imports = [
+    inputs.noctalia.homeModules.default
     ./niri.nix
-    ./dms.nix
+    ./noctalia.nix
+    ./vicinae.nix
   ];
 
   home.packages =
@@ -25,9 +27,6 @@
       pavucontrol
       pulseaudioFull
       alsa-utils
-    ]
-    ++ [
-      inputs.awww.packages.${stdenv.hostPlatform.system}.default
     ];
 
   # Automatically disable the laptop panel when the external monitor is connected

@@ -1,9 +1,39 @@
 # Security / pentest tooling — mirrors a typical Kali Linux install.
 # System-level config (wireshark group, nmap caps) lives in
 # modules/nixos/security/tools.nix.
-{ pkgs-fresh, pkgs-stable, ... }:
+{
+  pkgs-fresh,
+  pkgs-stable,
+  ...
+}:
+let
+  # responder reads its config from Responder.conf next to Responder.py in
+  # the package share dir (settings.py: os.path.dirname(__file__)), which is
+  # read-only in the store. Overlay our editable copy from cfg/responder/
+  # onto the package.
+  responder-custom = pkgs-stable.symlinkJoin {
+    name = "responder-custom";
+    paths = [ pkgs-stable.responder ];
+    postBuild = ''
+      ln -sf ${../../../cfg/responder/Responder.conf} \
+        $out/share/Responder/Responder.conf
+    '';
+  };
+in
 {
   home.packages = with pkgs-stable; [
+    # ── NTLM / Active Directory poisoning & relay ─────────────────────────────
+    # Firewall ports for these are controlled by `pentest-firewall`
+    # (modules/nixos/security/pentest.nix) — off by default.
+    responder-custom   # LLMNR / NBT-NS / mDNS poisoner + rogue auth servers
+                       # conf: cfg/responder/Responder.conf
+    netexec            # NetExec (nxc) — maintained CrackMapExec fork
+    smbmap             # SMB share enumeration
+    # NOTE: mitm6 removed — nixpkgs still ships its deprecated `future`
+    # dependency which cannot build on python3.13.
+    pkgs-stable.python3Packages.impacket  # secretsdump.py, psexec.py, etc.
+    pkgs-stable.python3Packages.certipy-ad  # AD certificate attacks
+
     # ── Network scanning ──────────────────────────────────────────────────────
     nmap        # includes ncat; needs sudo for SYN/OS-detect scans
     masscan     # fast TCP port scanner

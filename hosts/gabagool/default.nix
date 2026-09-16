@@ -15,7 +15,14 @@
     ../../modules/nixos
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # Suspend on lid close (battery only; ignored on AC per
+  # modules/nixos/hardware/power-management.nix and while docked per the
+  # logind default), then hibernate after 30 minutes. swap on nvme0n1p3
+  # (68G, > RAM) and boot.resumeDevice make hibernation possible.
+  services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
+  systemd.sleep.settings.Sleep.HibernateDelaySec = "30min";
 
   networking.hostName = "gabagool";
 

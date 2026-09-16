@@ -48,19 +48,22 @@ in
     xwayland-satellite
   ];
 
-  programs.dms-shell = {
+  # Noctalia desktop shell (v5.1.0 flake) + Vicinae launcher (adds the
+  # cap_dac_override-wrapped input server for clipboard/emoji pasting/snippets).
+  imports = [
+    inputs.noctalia.nixosModules.default
+    (inputs.vicinae.nixosModules.default)
+  ];
+
+  programs.noctalia = {
     enable = true;
+    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     systemd = {
       enable = true;
-      restartIfChanged = true;
+      target = "niri.service";
     };
 
-    enableSystemMonitoring = true;
-    enableVPN = true;
-    enableDynamicTheming = true;
-    enableAudioWavelength = true;
-    enableCalendarEvents = true;
-    enableClipboardPaste = true;
+    recommendedServices.enable = true;
   };
 }
