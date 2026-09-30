@@ -1,0 +1,18 @@
+scheme: "Monochrome"
+author: "Grayscale black & white"
+base00: "050505" # Default background
+base01: "0b0b0e" # Lighter background
+base02: "17171b" # Selection background
+base03: "2e2e34" # Comments, invisibles
+base04: "55555e" # Dark foreground, status bars
+base05: "a8a8b0" # Default foreground, caret, delimiters
+base06: "d6d6da" # Light foreground
+base07: "ffffff" # Lightest foreground
+base08: "e6e6ea" # Primary accent (white)
+base09: "c0c0c8" # Numbers, constants
+base0A: "f4f4f6" # Selection text, search highlight
+base0B: "b8bcc4" # Strings
+base0C: "9ca3af" # Support characters
+base0D: "e6edf7" # Functions, headings (near-white)
+base0E: "d1d5db" # Keywords
+base0F: "8e8e98" # Deprecated text

@@ -52,22 +52,21 @@
 
         colors = {
           core = {
-            background = "#070b14";
+            background = "#050505";
             foreground = "#e6edf7";
-            secondary_background = "#0a1220";
-            border = "#3a1620";
-            # Crimson accent role (matches Noctalia mPrimary)
-            accent = "#ff4e66";
+            secondary_background = "#141419";
+            border = "#23232b";
+            accent = "#e6edf7";
           };
           accents = {
-            blue = "#3b82f6";
-            green = "#4ade80";
-            magenta = "#ff6e9c";
-            orange = "#ff9f43";
-            purple = "#a78bfa";
-            red = "#ff4e66";
-            yellow = "#ffd27d";
-            cyan = "#38bdf8";
+            blue = "#b4b4bc";
+            green = "#d1d5db";
+            magenta = "#9ca3af";
+            orange = "#cbd5e1";
+            purple = "#8a8a93";
+            red = "#7e7e88";
+            yellow = "#f4f4f6";
+            cyan = "#a1a1aa";
           };
         };
       };
@@ -84,20 +83,20 @@
         colors = {
           core = {
             background = "#f1f5f9";
-            foreground = "#0b0f1a";
+            foreground = "#1a1a1e";
             secondary_background = "#e6eef8";
-            border = "#ffc1c9";
-            accent = "#ff4e66";
+            border = "#dde3ea";
+            accent = "#1a1a1e";
           };
           accents = {
-            blue = "#2563eb";
-            green = "#16a34a";
-            magenta = "#ff6e9c";
-            orange = "#d97706";
-            purple = "#a78bfa";
-            red = "#ff4e66";
-            yellow = "#f59e0b";
-            cyan = "#0ea5e9";
+            blue = "#6b7280";
+            green = "#4b5563";
+            magenta = "#9ca3af";
+            orange = "#d1d5db";
+            purple = "#6b7280";
+            red = "#374151";
+            yellow = "#1f2937";
+            cyan = "#9ca3af";
           };
         };
       };

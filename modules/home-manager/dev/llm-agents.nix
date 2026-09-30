@@ -25,4 +25,18 @@ in {
   home.sessionVariables = {
     CRUSH_SKILLS_DIR = "${config.home.homeDirectory}/.config/agents/skills";
   };
+
+  # OpenCode pulls Tony's skills from the personal HTTP catalog on every run.
+  home.file.".config/opencode/opencode.json".text = builtins.toJSON {
+    "$schema" = "https://opencode.ai/config.json";
+    mcp = {
+      Sanity = {
+        type = "remote";
+        url = "https://mcp.sanity.io";
+      };
+    };
+    skills = [
+      "https://raw.githubusercontent.com/anthonyl6/tony-agents/main/skills/"
+    ];
+  };
 }

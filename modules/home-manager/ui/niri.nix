@@ -22,6 +22,19 @@
           warp-mouse-to-focus
       }
 
+      // Display settings as of 2026-09-19 (`niri msg outputs`).
+      // eDP-1: laptop panel, hi-dpi. DP-11: external ultrawide to the right.
+      output "eDP-1" {
+          mode "2880x1920@120.000"
+          scale 2
+      }
+
+      output "DP-11" {
+          mode "2560x1080@74.991"
+          scale 1
+          position x=1440 y=0
+      }
+
       prefer-no-csd
 
       cursor {
@@ -57,7 +70,7 @@
 
           focus-ring {
               width 2
-              active-gradient from="#ff4e66" to="#191724" angle=180
+              active-gradient from="#e6edf7" to="#1a1a1e" angle=180
           }
 
           tab-indicator {
@@ -241,6 +254,9 @@
           Alt+Tab { spawn "noctalia" "msg" "window-switcher"; }
           Mod+L { spawn "noctalia" "msg" "session" "lock"; }
           Super+Alt+L { spawn "dolphin"; }
+          // Opens an additional Zed window (Zed reuses one process; this is
+          // how multiple editors work).
+          Mod+E { spawn "zeditor"; }
 
           // You can also use a shell. Do this if you need pipes, multiple commands, etc.
           // Note: the entire command goes as a single argument in the end.

@@ -10,7 +10,7 @@
   ];
   stylix = {
     enable = true;
-    base16Scheme = ./themes/poimandres.yaml;
+    base16Scheme = ./themes/monochrome.yaml;
     polarity = "dark";
     cursor = {
       package = pkgs-stable.rose-pine-cursor;

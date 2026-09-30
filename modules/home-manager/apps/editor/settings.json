@@ -136,6 +136,7 @@
     }
   },
   "window_decorations": "server",
+  "window_background_opacity": 0.85,
   "which_key": {
     "enabled": true,
     "delay_ms": 50

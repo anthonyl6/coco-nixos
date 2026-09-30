@@ -149,7 +149,31 @@ in {
         "browser.ping-centre.telemetry" = false;
         "toolkit.telemetry.enabled" = false;
         "toolkit.telemetry.unified" = false;
+
+        # Transparent window rice (works with niri's blur layer-rules).
+        "zen.widget.linux.transparency" = true;
+        "browser.tabs.allow_transparent_browser" = true;
+        "widget.transparent_windows" = true;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
+
+      userChrome = ''
+        /* Transparent window rice — needs zen.widget.linux.transparency,
+           browser.tabs.allow_transparent_browser and
+           widget.transparent_windows = true in about:config. */
+        :root:not([inDOMFullscreen="true"]):not([chromehidden~="location"]):not([chromehidden~="toolbar"]) {
+          & #tabbrowser-tabbox #tabbrowser-tabpanels .browserSidebarContainer {
+            & browser[transparent="true"] {
+              background: none !important;
+            }
+          }
+        }
+
+        :root,
+        #zen-main-app-wrapper {
+          background-color: transparent !important;
+        }
+      '';
     };
   };
 

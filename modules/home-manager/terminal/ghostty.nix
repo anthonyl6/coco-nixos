@@ -126,30 +126,30 @@ term = xterm-ghostty
     '';
   };
 
-  # Dark theme built from the Crimson Voltage palette (matches Noctalia).
+  # Dark theme — black & white monochrome (matches Noctalia + wallpaper).
   home.file.".config/ghostty/themes/CrimsonVoltageDark".text = ''
-    palette = 0=#0f172a
-    palette = 1=#ff4e66
-    palette = 2=#4ade80
-    palette = 3=#ff9f43
-    palette = 4=#3b82f6
-    palette = 5=#ff6e9c
-    palette = 6=#38bdf8
-    palette = 7=#e6edf7
-    palette = 8=#475569
-    palette = 9=#f57385
-    palette = 10=#86efac
-    palette = 11=#ffd27d
-    palette = 12=#60a5fa
-    palette = 13=#ff9fc4
-    palette = 14=#7dd3fc
-    palette = 15=#cbd5e1
+          palette = 0=#17171b
+          palette = 1=#8a8a93
+          palette = 2=#b8bcc4
+          palette = 3=#e6edf7
+          palette = 4=#7e7e88
+          palette = 5=#d1d5db
+          palette = 6=#9ca3af
+          palette = 7=#e6edf7
+          palette = 8=#4b4b52
+          palette = 9=#c0c0c8
+          palette = 10=#d8d8de
+          palette = 11=#f4f4f6
+          palette = 12=#8e8e98
+          palette = 13=#e8e8ec
+          palette = 14=#b4b4bc
+          palette = 15=#cbd5e1
 
-    background = #070b14
-    foreground = #e6edf7
-    cursor-color = #ff4e66
-    cursor-text = #0b0f1a
-    selection-background = #3a1620
-    selection-foreground = #ffc1c9
+          background = #050505
+          foreground = #e6edf7
+          cursor-color = #e6edf7
+          cursor-text = #050505
+          selection-background = #23232b
+          selection-foreground = #f4f4f6
   '';
 }

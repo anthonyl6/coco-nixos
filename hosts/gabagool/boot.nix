@@ -17,6 +17,17 @@
       limine = {
         enable = true;
         secureBoot.enable = true;
+
+        # Windows 11 at nvme0n1p4 with its bootmgfw.efi on the shared ESP
+        # (nvme0n1p1, same partition Limine boots from), so boot() resolves
+        # there. If Windows ever gets a separate ESP, change this to
+        # guid(<windows-esp-partuuid>):/EFI/Microsoft/Boot/bootmgfw.efi.
+        extraEntries = ''
+          /Windows
+              protocol: efi
+              path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+        '';
+
         extraConfig = ''
           term_palette: 1e1e2e;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4
           term_palette_bright: 585b70;f38ba8;a6e3a1;f9e2af;89b4fa;f5c2e7;94e2d5;cdd6f4
@@ -48,6 +59,13 @@
         })
       ];
     };
+    # Shutdown hangs in the final systemd-shutdown phase (the last logged line
+    # is "Syncing filesystems", then silence — consistent with the SN850X /
+    # PCIe D3cold wedge documented under kernelParams above). The default
+    # ShutdownWatchdogSec is 10min, so a hung shutdown "freezes" until the
+    # hardware watchdog finally reboots; users power off first. 60s keeps the
+    # hang self-recovering while still leaving time for a clean sync.
+    # Remove once shutdowns are reliably clean.
     consoleLogLevel = 3;
     initrd = {
       verbose = false;
@@ -82,6 +100,11 @@
       # on the built-in panel when it hangs. Remove once root-caused.
       "no_console_suspend"
     ];
+  };
+
+  systemd.settings.Manager = {
+    # 60s (instead of the 10min default) — see the comment in boot.*
+    ShutdownWatchdogSec = "60s";
   };
 
   # Suspending intermittently hangs during device suspend. This enables
